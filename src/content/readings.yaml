@@ -1,0 +1,125 @@
+# Reading list — metadata and PUBLIC links only.
+# Never add paid PDFs, course uploads, or anything behind Canvas. See CONTENT_POLICY.md.
+- id: slp3
+  title: "Speech and Language Processing (3rd ed. draft)"
+  authors: ["Dan Jurafsky", "James H. Martin"]
+  type: book
+  year: 2025
+  venue: "Stanford (free draft)"
+  url: https://web.stanford.edu/~jurafsky/slp3/
+  courses: ["NLP"]
+  status: reading
+  rating: 5
+  tags: ["nlp", "textbook", "reference"]
+  note: "The standard NLP reference. Working through the language-modeling and transformer chapters first."
+
+- id: attention-is-all-you-need
+  title: "Attention Is All You Need"
+  authors: ["Vaswani et al."]
+  type: paper
+  year: 2017
+  venue: "NeurIPS"
+  url: https://arxiv.org/abs/1706.03762
+  courses: ["NLP", "DL"]
+  status: to-read
+  tags: ["transformers", "attention", "foundational"]
+  note: "The transformer paper. Plan to read it alongside an annotated implementation."
+
+- id: dlbook
+  title: "Deep Learning"
+  authors: ["Ian Goodfellow", "Yoshua Bengio", "Aaron Courville"]
+  type: book
+  year: 2016
+  venue: "MIT Press (free online)"
+  url: https://www.deeplearningbook.org/
+  courses: ["DL"]
+  status: reading
+  rating: 4
+  tags: ["deep-learning", "textbook", "math"]
+  note: "Strong on the optimization and regularization foundations."
+
+- id: d2l
+  title: "Dive into Deep Learning"
+  authors: ["Aston Zhang et al."]
+  type: book
+  year: 2023
+  venue: "d2l.ai (free, interactive)"
+  url: https://d2l.ai/
+  courses: ["DL"]
+  status: reference
+  tags: ["deep-learning", "pytorch", "code"]
+  note: "Runnable notebooks make this my go-to when a concept needs code to click."
+
+- id: hf-nlp-course
+  title: "Hugging Face NLP Course"
+  authors: ["Hugging Face"]
+  type: course
+  year: 2024
+  venue: "huggingface.co (free)"
+  url: https://huggingface.co/learn/nlp-course
+  courses: ["NLP"]
+  status: to-read
+  tags: ["nlp", "transformers", "hands-on"]
+  note: "Practical bridge from theory to the Transformers library."
+
+- id: zero-to-hero
+  title: "Neural Networks: Zero to Hero"
+  authors: ["Andrej Karpathy"]
+  type: video
+  year: 2023
+  venue: "YouTube (free)"
+  url: https://karpathy.ai/zero-to-hero.html
+  courses: ["DL"]
+  status: reading
+  rating: 5
+  tags: ["deep-learning", "from-scratch", "backprop"]
+  note: "Building micrograd and a GPT from scratch. The clearest backprop explanation I have found."
+
+- id: stochastic-parrots
+  title: "On the Dangers of Stochastic Parrots: Can Language Models Be Too Big?"
+  authors: ["Bender", "Gebru", "McMillan-Major", "Shmitchell"]
+  type: paper
+  year: 2021
+  venue: "FAccT"
+  url: https://dl.acm.org/doi/10.1145/3442188.3445922
+  courses: ["ETHICS", "NLP"]
+  status: to-read
+  tags: ["ethics", "llms", "bias"]
+  note: "Core reading on the social and environmental costs of scaling language models."
+
+- id: model-cards
+  title: "Model Cards for Model Reporting"
+  authors: ["Mitchell et al."]
+  type: paper
+  year: 2019
+  venue: "FAT*"
+  url: https://arxiv.org/abs/1810.03993
+  courses: ["ETHICS"]
+  status: done
+  rating: 4
+  tags: ["ethics", "documentation", "transparency"]
+  note: "A simple, durable template for honest model documentation. I want to write one for every model I ship."
+
+- id: datasheets
+  title: "Datasheets for Datasets"
+  authors: ["Gebru et al."]
+  type: paper
+  year: 2021
+  venue: "Communications of the ACM"
+  url: https://arxiv.org/abs/1803.09010
+  courses: ["ETHICS"]
+  status: to-read
+  tags: ["ethics", "data", "documentation"]
+  note: "The dataset-side companion to model cards."
+
+- id: nist-airmf
+  title: "AI Risk Management Framework (AI RMF 1.0)"
+  authors: ["NIST"]
+  type: docs
+  year: 2023
+  venue: "NIST"
+  url: https://www.nist.gov/itl/ai-risk-management-framework
+  courses: ["ETHICS"]
+  status: reference
+  tags: ["ethics", "governance", "risk"]
+  note: "A practical vocabulary for talking about AI risk with non-researchers."

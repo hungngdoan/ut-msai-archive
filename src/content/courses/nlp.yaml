@@ -1,0 +1,44 @@
+code: NLP
+title: Natural Language Processing
+semester: fall-2026
+status: planned
+credits: 3
+accent: "#2ce3c4"
+order: 1
+summary: >-
+  How machines represent, understand, and generate human language. The arc I expect
+  runs from classical text processing and word representations through neural sequence
+  models to the transformer architecture that underpins modern large language models.
+  My goal is to understand these systems deeply enough to build, fine-tune, and
+  critically evaluate them rather than treat them as black boxes.
+focusAreas:
+  - Tokenization & text preprocessing
+  - Word & contextual embeddings
+  - Language modeling
+  - Attention & transformers
+  - Sequence labeling
+  - Machine translation
+  - Evaluation & error analysis
+tools:
+  - Python
+  - PyTorch
+  - Hugging Face Transformers
+  - spaCy
+  - NLTK
+skills:
+  - Building & fine-tuning transformer models
+  - Designing text preprocessing pipelines
+  - Choosing & interpreting metrics (F1, BLEU, perplexity)
+  - Structured error analysis
+outcomes:
+  - Implement attention from scratch and explain why it replaced recurrence
+  - Fine-tune a pretrained model on a small downstream task end to end
+  - Read an NLP paper and reproduce its core result at small scale
+  - Build intuition for where modern LLMs fail and why
+links:
+  - label: Stanford CS224N (public course page)
+    url: https://web.stanford.edu/class/cs224n/
+  - label: Jurafsky & Martin — Speech and Language Processing (free draft)
+    url: https://web.stanford.edu/~jurafsky/slp3/
+  - label: Hugging Face — NLP Course (free)
+    url: https://huggingface.co/learn/nlp-course

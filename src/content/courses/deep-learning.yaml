@@ -1,0 +1,46 @@
+code: DL
+title: Deep Learning
+semester: fall-2026
+status: planned
+credits: 3
+accent: "#f5a623"
+order: 3
+summary: >-
+  The mathematical and engineering core of modern AI. Starting from a single neuron and
+  backpropagation, building up through optimization, convolutional and recurrent
+  architectures, regularization, and the transformer. I care most about the layer beneath
+  the framework calls: what gradients actually flow where, why training diverges, and how
+  to debug a network that silently refuses to learn.
+focusAreas:
+  - Backpropagation & autograd
+  - Optimization (SGD, Adam, schedules)
+  - Convolutional networks
+  - Recurrent networks & sequence models
+  - Regularization & normalization
+  - Transformers
+  - Generative models
+tools:
+  - PyTorch
+  - NumPy
+  - CUDA / GPU training
+  - Weights & Biases
+  - Jupyter
+skills:
+  - Implementing networks and backprop from scratch
+  - Training, profiling, and debugging models
+  - Hyperparameter and learning-rate tuning
+  - Reading and reproducing deep-learning papers
+outcomes:
+  - Implement backprop by hand for a small MLP and match autograd
+  - Train a CNN and a small transformer to a known baseline
+  - Diagnose and fix a non-converging training run from first principles
+  - Build a reusable training/evaluation harness I trust
+links:
+  - label: Goodfellow, Bengio & Courville — Deep Learning (free online)
+    url: https://www.deeplearningbook.org/
+  - label: Dive into Deep Learning (d2l.ai, free & interactive)
+    url: https://d2l.ai/
+  - label: 3Blue1Brown — Neural Networks series
+    url: https://www.3blue1brown.com/topics/neural-networks
+  - label: Karpathy — Neural Networks Zero to Hero
+    url: https://karpathy.ai/zero-to-hero.html

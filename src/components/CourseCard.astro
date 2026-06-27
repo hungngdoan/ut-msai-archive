@@ -1,0 +1,36 @@
+---
+import type { Course, Semester } from '../lib/collections';
+import { courseProgressPct, semesterProgress } from '../lib/collections';
+import StatusPill from './StatusPill.astro';
+import ProgressBar from './ProgressBar.astro';
+import { href } from '../lib/url';
+
+interface Props {
+  course: Course;
+  semester?: Semester;
+}
+const { course, semester } = Astro.props;
+const pct = courseProgressPct(course, semester);
+const prog = semester ? semesterProgress(semester) : undefined;
+const progLabel =
+  course.data.status === 'completed' ? 'Completed'
+  : course.data.status === 'planned' ? (prog?.label ?? 'Planned')
+  : (prog?.label ?? 'In progress');
+---
+
+<a href={href(`/courses/${course.id}`)} class="card card-link accent-bar block p-5 pl-6 h-full">
+  <div class="flex items-start justify-between gap-3 mb-3">
+    <div>
+      <div class="eyebrow mb-1" style={`color:${course.data.accent}`}>{course.data.code}</div>
+      <h3 class="text-lg leading-tight">{course.data.title}</h3>
+    </div>
+    <StatusPill status={course.data.status} />
+  </div>
+  <p class="text-sm text-[var(--color-ink-300)] leading-relaxed line-clamp-3">{course.data.summary}</p>
+  <div class="mt-4 flex flex-wrap gap-1.5">
+    {course.data.focusAreas.slice(0, 3).map((f) => <span class="chip">{f}</span>)}
+  </div>
+  <div class="mt-4">
+    <ProgressBar pct={pct} label={progLabel} accent={course.data.accent} />
+  </div>
+</a>

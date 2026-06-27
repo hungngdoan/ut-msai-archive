@@ -1,0 +1,46 @@
+---
+title: Setting up the archive and a PyTorch refresh
+week: 26
+semester: pre-term-2026
+dateStart: 2026-06-22
+dateEnd: 2026-06-28
+courses: ["DL", "NLP"]
+focus: Stood up this learning archive and got back into PyTorch fundamentals before the term starts.
+hours: 11
+highlights:
+  - Shipped v1 of this archive — courses, log, readings, and projects all build from validated content files
+  - Re-derived backprop by hand for a 2-layer MLP and matched it against autograd
+  - Rebuilt a clean training loop from memory without copying from a tutorial
+gaps:
+  - Still shaky on broadcasting rules when shapes disagree — I reach for trial and error too often
+  - Need a real mental model of when to reach for Adam vs plain SGD with momentum
+tags: ["setup", "pytorch", "foundations"]
+---
+
+## What I did
+
+The headline this week is infrastructure: I built the first version of this archive so that
+tracking the program is low-friction once classes actually start. The bet is simple — if logging a
+week takes two minutes and one file, I will keep doing it; if it takes a Saturday, I won't.
+
+On the learning side, I went back to PyTorch basics rather than starting somewhere flashy. I
+re-implemented a small multi-layer perceptron and, more importantly, worked the backward pass out on
+paper before letting autograd do it. Matching the two by hand is the kind of thing that feels slow now
+and pays off when a real network refuses to train in October.
+
+## What clicked
+
+Doing backprop by hand finally made the chain rule feel mechanical instead of mysterious. Once you
+see that each layer just receives an upstream gradient and passes a transformed one backward, the
+whole graph stops being intimidating.
+
+## What didn't
+
+Tensor broadcasting. I can make the shapes line up, but I'm pattern-matching, not reasoning. Next
+week I want to be able to predict the output shape of an operation before I run it, every time.
+
+## Plan for next week
+
+- Write out the broadcasting rules in my own words and test myself on ten random shape pairs
+- Read the optimization chapter of the Deep Learning book and take notes on Adam vs SGD
+- Start the annotated transformer reading so I'm not cold on attention when NLP begins

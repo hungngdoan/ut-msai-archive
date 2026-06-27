@@ -1,0 +1,144 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import CourseCard from '../components/CourseCard.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import StatusPill from '../components/StatusPill.astro';
+import { site } from '../lib/site';
+import { href } from '../lib/url';
+import {
+  getCourses, getSemesters, getWeeks, getReadings, getProjects, getReflections,
+  coursesForSemester, buildStats, semesterProgress, formatDate, formatRange,
+} from '../lib/collections';
+
+const [courses, semesters, weeks, readings, projects, reflections] = await Promise.all([
+  getCourses(), getSemesters(), getWeeks(), getReadings(), getProjects(), getReflections(),
+]);
+
+const stats = buildStats(courses, weeks, readings, projects, reflections);
+const current = semesters.find((s) => s.id === site.currentSemesterId) ?? semesters[0];
+const currentCourses = current ? coursesForSemester(courses, current.id) : [];
+const prog = current ? semesterProgress(current) : undefined;
+
+const latestWeek = weeks[0];
+const latestReflection = reflections[0];
+const reading = readings.find((r) => r.data.status === 'reading') ?? readings.find((r) => r.data.status === 'to-read');
+const featuredProjects = projects.filter((p) => p.data.featured).slice(0, 2);
+
+const statItems = [
+  { n: stats.coursesInProgress + stats.coursesPlanned, label: 'modules tracked' },
+  { n: stats.weeksLogged, label: 'experiments logged' },
+  { n: `${stats.readingsDone}/${stats.readingsTotal}`, label: 'references cleared' },
+  { n: stats.projectsTotal, label: 'inventions' },
+  { n: stats.reflections, label: 'field notes' },
+];
+---
+
+<BaseLayout>
+  <!-- Hero -->
+  <section class="relative">
+    <div class="eyebrow mb-4 flex items-center gap-2">
+      <span class="w-1.5 h-1.5 rounded-full bg-[var(--color-reactor-bright)] shadow-[0_0_8px_var(--color-reactor)]"></span>
+      Machine Intelligence Lab · MSAI · Est. 2026
+    </div>
+    <h1 class="text-4xl sm:text-6xl leading-[1.05] max-w-3xl tracking-wide">
+      The&nbsp;Lab<span class="text-[var(--color-reactor-bright)]">oratory</span>
+    </h1>
+    <p class="mt-5 text-lg text-[var(--color-ink-300)] max-w-2xl leading-relaxed">
+      A build-validated notebook for my Master of Science in Artificial Intelligence — modules,
+      experiment logs, a reference library, inventions, and honest field notes. Everything here is
+      my own words and public links only.
+    </p>
+
+    {current && prog && (
+      <div class="mt-8 inline-flex flex-wrap items-center gap-x-4 gap-y-2 card px-5 py-3">
+        <span class="eyebrow flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[var(--color-status-done)]"></span>Status</span>
+        <span class="text-[var(--color-ink-100)] font-medium">{current.data.name}</span>
+        <span class="text-[var(--color-ink-500)]">·</span>
+        <span class="font-mono text-sm text-[var(--color-reactor-bright)]">{prog.label}</span>
+        <span class="text-[var(--color-ink-500)]">·</span>
+        <span class="font-mono text-xs text-[var(--color-ink-400)]">{formatRange(current.data.startDate, current.data.endDate)}</span>
+      </div>
+    )}
+  </section>
+
+  <!-- Stats -->
+  <section class="mt-12 grid grid-cols-2 sm:grid-cols-5 gap-px bg-[var(--color-ink-800)] border border-[var(--color-ink-800)] rounded-lg overflow-hidden">
+    {statItems.map((s) => (
+      <div class="bg-[var(--color-ink-950)] px-5 py-6">
+        <div class="font-[var(--font-display)] text-3xl text-[var(--color-ink-100)]">{s.n}</div>
+        <div class="eyebrow mt-1">{s.label}</div>
+      </div>
+    ))}
+  </section>
+
+  <!-- Current courses -->
+  {currentCourses.length > 0 && (
+    <section class="mt-16">
+      <SectionHeader eyebrow={current?.data.name} title="Active modules" more={{ label: 'All modules', href: '/courses' }} />
+      <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {currentCourses.map((course) => <CourseCard course={course} semester={current} />)}
+      </div>
+    </section>
+  )}
+
+  <!-- Latest log + currently reading -->
+  <section class="mt-16 grid gap-8 lg:grid-cols-3">
+    <div class="lg:col-span-2">
+      <SectionHeader eyebrow="Experiment log" title="Latest entry" more={{ label: 'All entries', href: '/log' }} />
+      {latestWeek ? (
+        <a href={href(`/log/${latestWeek.id}`)} class="card card-link accent-bar block p-6 pl-7">
+          <div class="flex items-center justify-between gap-3">
+            <span class="eyebrow">Week {latestWeek.data.week} · {formatRange(latestWeek.data.dateStart, latestWeek.data.dateEnd)}</span>
+            {latestWeek.data.hours && <span class="font-mono text-xs text-[var(--color-ink-400)]">{latestWeek.data.hours}h</span>}
+          </div>
+          <h3 class="text-xl mt-2">{latestWeek.data.title}</h3>
+          <p class="mt-2 text-[var(--color-ink-300)]">{latestWeek.data.focus}</p>
+          {latestWeek.data.highlights.length > 0 && (
+            <ul class="mt-4 space-y-1.5 text-sm text-[var(--color-ink-300)]">
+              {latestWeek.data.highlights.slice(0, 3).map((h) => (
+                <li class="flex gap-2"><span class="text-[var(--color-reactor)]">+</span><span>{h}</span></li>
+              ))}
+            </ul>
+          )}
+        </a>
+      ) : (
+        <p class="text-[var(--color-ink-400)]">No log entries yet.</p>
+      )}
+    </div>
+
+    <div class="space-y-8">
+      <div>
+        <SectionHeader eyebrow="Bench" title="On the bench" more={{ label: 'Library', href: '/readings' }} />
+        {reading ? (
+          <div class="card p-5">
+            <a href={reading.data.url} target="_blank" rel="noopener" class="font-medium text-[var(--color-ink-100)] hover:text-[var(--color-reactor-bright)] leading-snug">{reading.data.title} ↗</a>
+            <div class="mt-1 font-mono text-[0.72rem] text-[var(--color-ink-400)]">{reading.data.authors.join(', ')}</div>
+            <div class="mt-3"><StatusPill status={reading.data.status} /></div>
+          </div>
+        ) : <p class="text-[var(--color-ink-400)] text-sm">Nothing on the desk.</p>}
+      </div>
+
+      {latestReflection && (
+        <div>
+          <SectionHeader eyebrow="Notebook" title="Field note" more={{ label: 'More', href: '/reflections' }} />
+          <a href={href(`/reflections/${latestReflection.id}`)} class="card card-link block p-5">
+            <div class="eyebrow mb-1">{formatDate(latestReflection.data.date)}</div>
+            <h3 class="text-base leading-snug">{latestReflection.data.title}</h3>
+            {latestReflection.data.summary && <p class="mt-2 text-sm text-[var(--color-ink-300)] line-clamp-3">{latestReflection.data.summary}</p>}
+          </a>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- Featured projects -->
+  {featuredProjects.length > 0 && (
+    <section class="mt-16">
+      <SectionHeader eyebrow="Portfolio-safe" title="Featured inventions" more={{ label: 'All inventions', href: '/projects' }} />
+      <div class="grid gap-5 sm:grid-cols-2">
+        {featuredProjects.map((project) => <ProjectCard project={project} />)}
+      </div>
+    </section>
+  )}
+</BaseLayout>

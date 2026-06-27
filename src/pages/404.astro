@@ -1,0 +1,13 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { href } from '../lib/url';
+---
+
+<BaseLayout title="Not found" description="Page not found.">
+  <div class="py-20 text-center">
+    <div class="font-mono text-7xl text-[var(--color-reactor-bright)]">404</div>
+    <h1 class="mt-4 text-2xl">This experiment isn't in the lab.</h1>
+    <p class="mt-3 text-[var(--color-ink-400)]">The specimen you're looking for may have moved, or was never synthesized.</p>
+    <a href={href('/')} class="inline-block mt-8 font-mono text-sm text-[var(--color-reactor-bright)] hover:underline">← Back to the control panel</a>
+  </div>
+</BaseLayout>

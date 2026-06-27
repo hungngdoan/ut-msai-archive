@@ -1,0 +1,13 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+// Render the canonical content policy so the site and the repo never drift.
+import { Content as Policy } from '../../CONTENT_POLICY.md';
+---
+
+<BaseLayout title="Content policy" description="What this public archive does and does not publish, and the academic-integrity boundary it holds." width="prose">
+  <header class="mb-8 border-b border-[var(--color-ink-800)] pb-6">
+    <div class="eyebrow mb-3">Public-safe by design</div>
+    <h1 class="text-3xl sm:text-4xl">Content policy</h1>
+  </header>
+  <article class="prose"><Policy /></article>
+</BaseLayout>

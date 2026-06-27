@@ -1,0 +1,79 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../lib/site';
+import { href } from '../lib/url';
+
+const sections = [
+  {
+    h: 'What this is',
+    body: 'The Laboratory is a public notebook and dashboard for my Master of Science in Artificial Intelligence at The University of Texas at Austin. It tracks modules, weekly experiments, a reference library, inventions, and field notes across the full program.',
+  },
+  {
+    h: 'Why it exists',
+    body: 'Three reasons. First, to make my own learning visible to myself — progress and gaps in one place. Second, to build a portfolio that grows naturally out of the work instead of being bolted on at the end. Third, because building and maintaining a clean static site is itself a small, ongoing engineering exercise.',
+  },
+  {
+    h: 'How it stays honest',
+    body: 'Module progress is derived from the academic calendar, not hand-tuned, so a bar can never claim more than the term clock allows. The experiment log keeps the gaps in view, not just the wins. Every entry is one validated file; an edit that breaks the data model fails the build before it ever ships.',
+  },
+];
+---
+
+<BaseLayout title="About" description="About The Laboratory — a public learning notebook for an MSAI journey.">
+  <header class="mb-12 max-w-2xl">
+    <div class="eyebrow mb-3">Colophon</div>
+    <h1 class="text-4xl sm:text-5xl tracking-wide">About the lab</h1>
+    <p class="mt-5 text-lg text-[var(--color-ink-300)] leading-relaxed">
+      {site.name} — {site.tagline.toLowerCase()}
+    </p>
+  </header>
+
+  <div class="grid gap-10 lg:grid-cols-3">
+    <div class="lg:col-span-2 space-y-10">
+      {sections.map((s) => (
+        <section>
+          <h2 class="text-xl mb-3">{s.h}</h2>
+          <p class="text-[var(--color-ink-300)] leading-relaxed max-w-2xl">{s.body}</p>
+        </section>
+      ))}
+
+      <section>
+        <h2 class="text-xl mb-3">First semester</h2>
+        <p class="text-[var(--color-ink-300)] leading-relaxed max-w-2xl">
+          Fall 2026 begins the program with three courses — Natural Language Processing, Ethics in AI, and
+          Deep Learning. See the <a class="text-[var(--color-reactor-bright)] hover:underline" href={href('/courses')}>courses</a> page for details.
+        </p>
+      </section>
+    </div>
+
+    <aside class="space-y-8">
+      <div class="card p-5">
+        <div class="eyebrow mb-3">Built with</div>
+        <ul class="space-y-1.5 text-sm text-[var(--color-ink-300)] font-mono">
+          <li>Astro · content collections</li>
+          <li>Tailwind CSS v4</li>
+          <li>MDX · YAML</li>
+          <li>GitHub Pages · Actions</li>
+        </ul>
+      </div>
+      <div class="card p-5">
+        <div class="eyebrow mb-3">Public-safe</div>
+        <p class="text-sm text-[var(--color-ink-300)] leading-relaxed">
+          My own words and public links only. No syllabi, prompts, rubrics, slides, or solutions.
+        </p>
+        <a href={href('/policy')} class="inline-block mt-3 font-mono text-xs text-[var(--color-reactor-bright)] hover:underline">Read the content policy →</a>
+      </div>
+      <div class="card p-5">
+        <div class="eyebrow mb-3">Elsewhere</div>
+        <ul class="space-y-1.5 text-sm">
+          <li><a class="text-[var(--color-ink-200)] hover:text-[var(--color-reactor-bright)]" href={site.github} target="_blank" rel="noopener">Source on GitHub ↗</a></li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+
+  <p class="mt-16 text-xs font-mono text-[var(--color-ink-500)] max-w-2xl leading-relaxed">
+    This is an independent, personal project. It is not affiliated with, sponsored by, or endorsed by The
+    University of Texas at Austin. Course names are referenced for personal record-keeping only.
+  </p>
+</BaseLayout>

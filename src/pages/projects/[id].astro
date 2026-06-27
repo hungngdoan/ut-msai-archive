@@ -1,0 +1,50 @@
+---
+import { render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import StatusPill from '../../components/StatusPill.astro';
+import { href } from '../../lib/url';
+import { getProjects, formatDate } from '../../lib/collections';
+
+export async function getStaticPaths() {
+  const projects = await getProjects();
+  return projects.map((project) => ({ params: { id: project.id }, props: { project } }));
+}
+
+const { project } = Astro.props;
+const d = project.data;
+const { Content } = await render(project);
+---
+
+<BaseLayout title={d.title} description={d.summary} width="prose">
+  <a href={href('/projects')} class="font-mono text-xs text-[var(--color-ink-400)] hover:text-[var(--color-reactor-bright)]">← Inventions</a>
+
+  <header class="mt-4 mb-8 border-b border-[var(--color-ink-800)] pb-8">
+    <div class="flex flex-wrap items-center gap-3 mb-3">
+      <StatusPill status={d.status} />
+      {d.portfolioSafe && <span class="font-mono text-xs text-[var(--color-status-done)]">◆ portfolio-safe</span>}
+      <span class="font-mono text-xs text-[var(--color-ink-400)]">{formatDate(d.date)}</span>
+    </div>
+    <h1 class="text-3xl sm:text-4xl">{d.title}</h1>
+    <p class="mt-4 text-lg text-[var(--color-ink-300)]">{d.summary}</p>
+
+    <div class="mt-5 flex flex-wrap gap-1.5">
+      {d.stack.map((s) => <span class="chip">{s}</span>)}
+    </div>
+
+    <div class="mt-5 flex flex-wrap gap-4 font-mono text-sm">
+      {d.repoUrl && <a href={d.repoUrl} target="_blank" rel="noopener" class="text-[var(--color-reactor-bright)] hover:underline">Source ↗</a>}
+      {d.demoUrl && <a href={d.demoUrl} target="_blank" rel="noopener" class="text-[var(--color-reactor-bright)] hover:underline">Live demo ↗</a>}
+      {d.courses.length > 0 && <span class="text-[var(--color-ink-400)]">{d.courses.join(' / ')}</span>}
+    </div>
+  </header>
+
+  {d.highlights.length > 0 && (
+    <ul class="mb-10 grid gap-2 sm:grid-cols-2">
+      {d.highlights.map((h) => (
+        <li class="card p-4 text-sm text-[var(--color-ink-200)] flex gap-2"><span class="text-[var(--color-reactor)]">◆</span><span>{h}</span></li>
+      ))}
+    </ul>
+  )}
+
+  <article class="prose"><Content /></article>
+</BaseLayout>

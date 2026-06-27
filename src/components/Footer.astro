@@ -1,0 +1,34 @@
+---
+import { site } from '../lib/site';
+import { href } from '../lib/url';
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-[var(--color-ink-800)] mt-16">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8 py-10 grid gap-8 sm:grid-cols-3 text-sm">
+    <div>
+      <div class="font-[var(--font-display)] tracking-wide text-[var(--color-ink-100)] text-lg">{site.name}</div>
+      <p class="text-[var(--color-ink-400)] mt-2 max-w-xs leading-relaxed">{site.tagline} An independent personal project documenting a graduate AI journey.</p>
+    </div>
+    <div>
+      <div class="eyebrow mb-3">The Lab</div>
+      <ul class="space-y-1.5 text-[var(--color-ink-300)]">
+        <li><a class="hover:text-[var(--color-reactor-bright)]" href={href('/courses')}>Modules</a></li>
+        <li><a class="hover:text-[var(--color-reactor-bright)]" href={href('/log')}>Experiment log</a></li>
+        <li><a class="hover:text-[var(--color-reactor-bright)]" href={href('/projects')}>Inventions</a></li>
+        <li><a class="hover:text-[var(--color-reactor-bright)]" href={href('/readings')}>Reference library</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="eyebrow mb-3">Meta</div>
+      <ul class="space-y-1.5 text-[var(--color-ink-300)]">
+        <li><a class="hover:text-[var(--color-reactor-bright)]" href={href('/about')}>About</a></li>
+        <li><a class="hover:text-[var(--color-reactor-bright)]" href={href('/policy')}>Content policy</a></li>
+        <li><a class="hover:text-[var(--color-reactor-bright)]" href={site.github} rel="noopener" target="_blank">Source on GitHub ↗</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="max-w-6xl mx-auto px-5 sm:px-8 pb-8 text-xs font-mono text-[var(--color-ink-500)]">
+    © {year} {site.author} · Built with Astro · Public-safe by design
+  </div>
+</footer>

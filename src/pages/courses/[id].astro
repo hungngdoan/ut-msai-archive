@@ -1,0 +1,131 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import StatusPill from '../../components/StatusPill.astro';
+import ProgressBar from '../../components/ProgressBar.astro';
+import ReadingItem from '../../components/ReadingItem.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import { href } from '../../lib/url';
+import {
+  getCourses, getSemesters, getReadings, getProjects, getWeeks,
+  readingsForCourse, projectsForCourse, weeksForCourse,
+  courseProgressPct, semesterProgress, formatRange,
+} from '../../lib/collections';
+
+export async function getStaticPaths() {
+  const courses = await getCourses();
+  return courses.map((course) => ({ params: { id: course.id }, props: { course } }));
+}
+
+const { course } = Astro.props;
+const d = course.data;
+const semesters = await getSemesters();
+const semester = semesters.find((s) => s.id === d.semester);
+const [readings, projects, weeks] = await Promise.all([getReadings(), getProjects(), getWeeks()]);
+
+const relatedReadings = readingsForCourse(readings, d.code);
+const relatedProjects = projectsForCourse(projects, d.code);
+const relatedWeeks = weeksForCourse(weeks, d.code);
+const pct = courseProgressPct(course, semester);
+const prog = semester ? semesterProgress(semester) : undefined;
+
+const lists: { label: string; items: string[] }[] = [
+  { label: 'Focus areas', items: d.focusAreas },
+  { label: 'Tools', items: d.tools },
+  { label: 'Skills', items: d.skills },
+];
+---
+
+<BaseLayout title={d.title} description={d.summary}>
+  <a href={href('/courses')} class="font-mono text-xs text-[var(--color-ink-400)] hover:text-[var(--color-reactor-bright)]">← Modules</a>
+
+  <header class="mt-4 mb-8 border-b border-[var(--color-ink-800)] pb-8">
+    <div class="flex items-center gap-3 mb-3">
+      <span class="eyebrow" style={`color:${d.accent}`}>{d.code}</span>
+      <StatusPill status={d.status} />
+      {semester && <span class="font-mono text-xs text-[var(--color-ink-400)]">{semester.data.name}</span>}
+    </div>
+    <h1 class="text-3xl sm:text-5xl max-w-3xl">{d.title}</h1>
+    <p class="mt-5 text-lg text-[var(--color-ink-300)] max-w-2xl leading-relaxed">{d.summary}</p>
+    {semester && (
+      <div class="mt-6 max-w-md">
+        <ProgressBar pct={pct} label={prog?.label ?? ''} accent={d.accent} />
+        <div class="mt-1.5 font-mono text-[0.7rem] text-[var(--color-ink-500)]">{formatRange(semester.data.startDate, semester.data.endDate)}</div>
+      </div>
+    )}
+  </header>
+
+  <div class="grid gap-10 lg:grid-cols-3">
+    <div class="lg:col-span-2 space-y-10">
+      {d.outcomes.length > 0 && (
+        <section>
+          <h2 class="text-xl mb-4">What I want to walk away with</h2>
+          <ul class="space-y-2.5">
+            {d.outcomes.map((o) => (
+              <li class="flex gap-3 text-[var(--color-ink-200)]"><span class="text-[var(--color-reactor)] mt-1">◆</span><span>{o}</span></li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {relatedWeeks.length > 0 && (
+        <section>
+          <h2 class="text-xl mb-4">Experiment log mentions</h2>
+          <ul class="space-y-2">
+            {relatedWeeks.map((w) => (
+              <li>
+                <a href={href(`/log/${w.id}`)} class="card card-link block p-4 flex items-center justify-between gap-3">
+                  <span><span class="font-mono text-xs text-[var(--color-ink-400)]">W{w.data.week}</span> · {w.data.title}</span>
+                  <span class="font-mono text-xs text-[var(--color-ink-500)]">{formatRange(w.data.dateStart, w.data.dateEnd)}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {relatedProjects.length > 0 && (
+        <section>
+          <h2 class="text-xl mb-4">Related inventions</h2>
+          <div class="grid gap-4 sm:grid-cols-2">
+            {relatedProjects.map((project) => <ProjectCard project={project} />)}
+          </div>
+        </section>
+      )}
+    </div>
+
+    <aside class="space-y-8">
+      {lists.filter((l) => l.items.length > 0).map((l) => (
+        <div>
+          <div class="eyebrow mb-3">{l.label}</div>
+          <div class="flex flex-wrap gap-1.5">
+            {l.items.map((i) => <span class="chip">{i}</span>)}
+          </div>
+        </div>
+      ))}
+
+      {d.links.length > 0 && (
+        <div>
+          <div class="eyebrow mb-3">Public resources</div>
+          <ul class="space-y-2">
+            {d.links.map((link) => (
+              <li>
+                <a href={link.url} target="_blank" rel="noopener" class="text-sm text-[var(--color-ink-200)] hover:text-[var(--color-reactor-bright)]">
+                  {link.label} <span class="text-[var(--color-ink-500)]">↗</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {relatedReadings.length > 0 && (
+        <div>
+          <div class="eyebrow mb-3">Reference shelf</div>
+          <ul class="space-y-3">
+            {relatedReadings.map((reading) => <ReadingItem reading={reading} />)}
+          </ul>
+        </div>
+      )}
+    </aside>
+  </div>
+</BaseLayout>
