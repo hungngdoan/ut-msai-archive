@@ -11,6 +11,7 @@
     "build:fast": "astro build",
     "preview": "astro preview",
     "check": "astro check",
+    "og": "node scripts/generate-og.mjs",
     "astro": "astro"
   },
   "engines": {
@@ -24,6 +25,7 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.4",
     "@tailwindcss/vite": "^4.1.4",
+    "sharp": "^0.35.2",
     "tailwindcss": "^4.1.4",
     "typescript": "^5.8.3"
   }
