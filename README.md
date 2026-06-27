@@ -36,7 +36,7 @@ npm run build      # astro check (schema/type validation) + astro build
 npm run preview    # preview the production build locally
 ```
 
-Requires Node 20+ (see `.nvmrc`).
+Requires Node 22+ (see `.nvmrc`).
 
 ## Project structure
 
