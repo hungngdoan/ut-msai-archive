@@ -1,0 +1,30 @@
+{
+  "name": "ut-msai-archive",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "description": "The Laboratory — a public learning notebook and dashboard for a UT Austin MSAI journey.",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build",
+    "build:fast": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "astro": "astro"
+  },
+  "engines": {
+    "node": ">=20.3.0"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^4.2.4",
+    "@astrojs/sitemap": "^3.3.0",
+    "astro": "^5.7.5"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@tailwindcss/vite": "^4.1.4",
+    "tailwindcss": "^4.1.4",
+    "typescript": "^5.8.3"
+  }
+}

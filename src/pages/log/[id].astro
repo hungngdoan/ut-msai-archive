@@ -1,0 +1,63 @@
+---
+import { render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { href } from '../../lib/url';
+import { getWeeks, getCourses, courseByCode, formatRange } from '../../lib/collections';
+
+export async function getStaticPaths() {
+  const weeks = await getWeeks({ includeDrafts: true });
+  return weeks.map((week) => ({ params: { id: week.id }, props: { week } }));
+}
+
+const { week } = Astro.props;
+const d = week.data;
+const { Content } = await render(week);
+
+// Resolve course codes to actual course entries so links never assume slug == code.
+const allCourses = await getCourses();
+const linkedCourses = d.courses.map((code) => ({ code, course: courseByCode(allCourses, code) }));
+---
+
+<BaseLayout title={`Week ${d.week} — ${d.title}`} description={d.focus} width="prose">
+  <a href={href('/log')} class="font-mono text-xs text-[var(--color-ink-400)] hover:text-[var(--color-reactor-bright)]">← Experiment log</a>
+
+  <header class="mt-4 mb-8 border-b border-[var(--color-ink-800)] pb-8">
+    <div class="flex flex-wrap items-center gap-3 mb-3">
+      <span class="eyebrow">Week {d.week} · {formatRange(d.dateStart, d.dateEnd)}</span>
+      {d.hours && <span class="font-mono text-xs text-[var(--color-ink-400)]">{d.hours}h studied</span>}
+      {d.status === 'draft' && <span class="pill pill-planned">Draft</span>}
+    </div>
+    <h1 class="text-3xl sm:text-4xl">{d.title}</h1>
+    <p class="mt-4 text-lg text-[var(--color-ink-300)]">{d.focus}</p>
+    <div class="mt-4 flex flex-wrap gap-1.5">
+      {linkedCourses.map(({ code, course }) =>
+        course
+          ? <a href={href(`/courses/${course.id}`)} class="chip hover:border-[var(--color-reactor)]">{code}</a>
+          : <span class="chip">{code}</span>
+      )}
+    </div>
+  </header>
+
+  {(d.highlights.length > 0 || d.gaps.length > 0) && (
+    <div class="grid sm:grid-cols-2 gap-5 mb-10">
+      {d.highlights.length > 0 && (
+        <div class="card p-5">
+          <div class="eyebrow mb-3 text-[var(--color-status-active)]">What clicked</div>
+          <ul class="space-y-2 text-sm text-[var(--color-ink-200)]">
+            {d.highlights.map((h) => <li class="flex gap-2"><span class="text-[var(--color-reactor)]">+</span><span>{h}</span></li>)}
+          </ul>
+        </div>
+      )}
+      {d.gaps.length > 0 && (
+        <div class="card p-5">
+          <div class="eyebrow mb-3 text-[var(--color-amber)]">Gaps to close</div>
+          <ul class="space-y-2 text-sm text-[var(--color-ink-200)]">
+            {d.gaps.map((g) => <li class="flex gap-2"><span class="text-[var(--color-amber)]">→</span><span>{g}</span></li>)}
+          </ul>
+        </div>
+      )}
+    </div>
+  )}
+
+  <article class="prose"><Content /></article>
+</BaseLayout>

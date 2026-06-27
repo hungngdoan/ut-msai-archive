@@ -1,0 +1,44 @@
+---
+title: Linear algebra review and program logistics
+week: 24
+semester: pre-term-2026
+dateStart: 2026-06-08
+dateEnd: 2026-06-14
+courses: ["DL"]
+focus: Refreshed the linear algebra and probability that deep learning leans on, and mapped the road ahead.
+hours: 9
+highlights:
+  - Worked through eigenvectors and SVD until I could explain them without notes
+  - Built a one-page cheat sheet of the probability identities I always forget
+  - Sketched a rough study cadence for the three Fall courses
+gaps:
+  - Matrix calculus still slows me down — gradients of vector-valued functions especially
+  - I can state Bayes' rule but I'm slow to actually apply it under time pressure
+tags: ["math", "linear-algebra", "planning"]
+---
+
+## What I did
+
+Before touching any models, I wanted the math underneath them to feel solid. This week was linear
+algebra and probability review: the parts that show up constantly in deep learning rather than a
+full re-study. I focused on eigen-decomposition and the singular value decomposition because they
+keep reappearing in dimensionality reduction, optimization, and the geometry of what a layer does.
+
+I also did the unglamorous logistics work: a rough cadence for how I want to split time across
+Natural Language Processing, Ethics in AI, and Deep Learning once the term starts.
+
+## What clicked
+
+SVD finally stopped being a formula and started being a picture — any linear map as rotate, scale,
+rotate. Holding that image makes a lot of downstream material easier to reason about.
+
+## What didn't
+
+Matrix calculus. I can follow a derivation when I read it, but producing one is still slow. That's a
+real risk for Deep Learning, where I'll need to move through gradient derivations quickly.
+
+## Plan for next week
+
+- Drill matrix-calculus derivations until the common patterns are automatic
+- Turn the probability cheat sheet into spaced-repetition cards
+- Stand up the project repo and tooling so week one isn't spent on setup

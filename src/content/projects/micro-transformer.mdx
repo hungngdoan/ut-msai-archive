@@ -1,0 +1,35 @@
+---
+title: micro-transformer — attention from scratch
+date: 2026-06-20
+summary: A tiny, readable transformer implemented from first principles in PyTorch to understand attention by building it, not importing it.
+status: building
+stack: ["Python", "PyTorch", "NumPy"]
+courses: ["DL", "NLP"]
+repoUrl: https://github.com/hungngdoan/micro-transformer
+portfolioSafe: true
+featured: true
+highlights:
+  - Single-head and multi-head attention written by hand with shape assertions at every step
+  - Trains a character-level language model on a small public text corpus
+  - Heavily commented so the code reads like a derivation
+tags: ["deep-learning", "transformers", "from-scratch"]
+---
+
+## The idea
+
+The fastest way for me to stop treating attention as magic is to implement it from nothing. This is a
+small, deliberately un-optimized transformer: the point is clarity, not speed or benchmarks. It is a
+personal study project built before the term, not coursework.
+
+## What's inside
+
+- A from-scratch scaled dot-product attention with explicit shape checks
+- Multi-head attention, positional encodings, and a minimal training loop
+- A character-level language model trained on a small, public-domain text dataset
+
+## Status and honesty
+
+It trains and produces plausibly structured text at small scale; it is not competitive with anything
+real, and that's fine. The deliverable is understanding. Next I want to add a clean evaluation script
+and a short write-up comparing my hand-rolled attention against the framework implementation to make
+sure they agree numerically.

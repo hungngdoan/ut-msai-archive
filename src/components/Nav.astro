@@ -1,0 +1,40 @@
+---
+import { site } from '../lib/site';
+import { href, isActive } from '../lib/url';
+
+interface Props {
+  current: string;
+}
+const { current } = Astro.props;
+---
+
+<header class="sticky top-0 z-40 border-b border-[var(--color-ink-800)] bg-[color-mix(in_srgb,var(--color-ink-950)_82%,transparent)] backdrop-blur">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between gap-4">
+    <a href={href('/')} class="group flex items-center gap-2.5 shrink-0">
+      <span class="inline-flex items-center gap-1.5 font-mono text-sm tracking-[0.18em] text-[var(--color-reactor-bright)] border border-[var(--color-ink-700)] rounded px-1.5 py-0.5 group-hover:border-[var(--color-reactor)] transition-colors">
+        <span class="w-1.5 h-1.5 rounded-full bg-[var(--color-reactor-bright)] shadow-[0_0_8px_var(--color-reactor)]"></span>LAB
+      </span>
+      <span class="hidden sm:inline font-[var(--font-display)] tracking-wide text-[var(--color-ink-100)] text-lg">The&nbsp;Laboratory</span>
+    </a>
+
+    <nav aria-label="Primary" class="flex items-center gap-1 overflow-x-auto">
+      {site.nav.map((item) => {
+        const active = isActive(current, item.href);
+        return (
+          <a
+            href={href(item.href)}
+            aria-current={active ? 'page' : undefined}
+            class:list={[
+              'font-mono text-[0.78rem] tracking-wide px-2.5 py-1.5 rounded whitespace-nowrap transition-colors',
+              active
+                ? 'text-[var(--color-ink-100)] bg-[var(--color-ink-800)]'
+                : 'text-[var(--color-ink-400)] hover:text-[var(--color-ink-100)] hover:bg-[var(--color-ink-850)]',
+            ]}
+          >
+            {item.label}
+          </a>
+        );
+      })}
+    </nav>
+  </div>
+</header>

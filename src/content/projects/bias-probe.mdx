@@ -1,0 +1,35 @@
+---
+title: bias-probe — auditing a sentiment model
+date: 2026-06-14
+summary: A small notebook that probes a public sentiment-analysis model for demographic bias and writes up the findings as a mini model card.
+status: idea
+stack: ["Python", "Hugging Face", "pandas", "matplotlib"]
+courses: ["ETHICS", "NLP"]
+portfolioSafe: true
+featured: false
+highlights:
+  - Tests whether sentiment scores shift when only a name or demographic term changes
+  - Produces a short, honest model card summarizing observed disparities
+  - Uses only public models and synthetic, self-authored test sentences
+tags: ["ethics", "fairness", "nlp"]
+---
+
+## The idea
+
+A bridge between the Ethics and NLP threads: take a publicly available sentiment-analysis model and
+test whether its predictions change when the only thing that changes in a sentence is a name or a
+demographic term. The output is not a verdict on any vendor — it's practice at running a structured
+fairness probe and documenting it without overclaiming.
+
+## Approach
+
+- Generate matched sentence pairs that differ by a single demographic signal, written by me
+- Score both halves with a public model and measure the gap in predicted sentiment
+- Summarize the result as a short model card with explicit limitations
+
+## Why it's portfolio-safe
+
+Everything here is public or self-authored: public models, synthetic test sentences I write myself, no
+private or course data. It demonstrates the workflow — measure, document, qualify — rather than making
+strong claims from a small sample. This is a planned project; the repo will go up once the probe and
+write-up are clean.

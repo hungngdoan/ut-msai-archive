@@ -1,0 +1,21 @@
+---
+interface Props {
+  pct: number; // 0..100
+  label?: string;
+  accent?: string;
+}
+const { pct, label, accent = 'var(--color-reactor)' } = Astro.props;
+const clamped = Math.max(0, Math.min(100, Math.round(pct)));
+---
+
+<div class="w-full">
+  {label && (
+    <div class="flex items-center justify-between mb-1.5">
+      <span class="font-mono text-[0.7rem] text-[var(--color-ink-400)]">{label}</span>
+      <span class="font-mono text-[0.7rem] text-[var(--color-ink-300)]">{clamped}%</span>
+    </div>
+  )}
+  <div class="h-1.5 w-full rounded-full bg-[var(--color-ink-800)] overflow-hidden" role="progressbar" aria-valuenow={clamped} aria-valuemin="0" aria-valuemax="100">
+    <div class="h-full rounded-full" style={`width:${clamped}%;background:linear-gradient(to right, ${accent}, var(--color-reactor-bright));`}></div>
+  </div>
+</div>

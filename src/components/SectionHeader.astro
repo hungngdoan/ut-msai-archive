@@ -1,0 +1,23 @@
+---
+import { href } from '../lib/url';
+
+interface Props {
+  eyebrow?: string;
+  title: string;
+  more?: { label: string; href: string };
+}
+const { eyebrow, title, more } = Astro.props;
+---
+
+<div class="flex items-end justify-between gap-4 mb-5">
+  <div>
+    {eyebrow && <div class="eyebrow mb-1.5">{eyebrow}</div>}
+    <h2 class="text-2xl sm:text-[1.7rem]">{title}</h2>
+  </div>
+  {more && (
+    <a href={href(more.href)} class="font-mono text-[0.75rem] text-[var(--color-ink-400)] hover:text-[var(--color-reactor-bright)] whitespace-nowrap pb-1.5 transition-colors">
+      {more.label} →
+    </a>
+  )}
+</div>
+<hr class="rule mb-6" />

@@ -1,0 +1,36 @@
+---
+import { render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { href } from '../../lib/url';
+import { getReflections, formatDate } from '../../lib/collections';
+
+export async function getStaticPaths() {
+  const reflections = await getReflections();
+  return reflections.map((reflection) => ({ params: { id: reflection.id }, props: { reflection } }));
+}
+
+const { reflection } = Astro.props;
+const d = reflection.data;
+const { Content } = await render(reflection);
+const typeLabel: Record<string, string> = {
+  milestone: 'Milestone', gap: 'Gap analysis', retro: 'Retro', note: 'Note',
+};
+---
+
+<BaseLayout title={d.title} description={d.summary ?? d.title} width="prose">
+  <a href={href('/reflections')} class="font-mono text-xs text-[var(--color-ink-400)] hover:text-[var(--color-reactor-bright)]">← Field notes</a>
+
+  <header class="mt-4 mb-8 border-b border-[var(--color-ink-800)] pb-8">
+    <div class="flex items-center gap-3 mb-3">
+      <span class="eyebrow">{typeLabel[d.type] ?? d.type}</span>
+      <span class="font-mono text-xs text-[var(--color-ink-400)]">{formatDate(d.date)}</span>
+    </div>
+    <h1 class="text-3xl sm:text-4xl">{d.title}</h1>
+    {d.summary && <p class="mt-4 text-lg text-[var(--color-ink-300)]">{d.summary}</p>}
+    {d.tags.length > 0 && (
+      <div class="mt-4 flex flex-wrap gap-1.5">{d.tags.map((t) => <span class="chip">{t}</span>)}</div>
+    )}
+  </header>
+
+  <article class="prose"><Content /></article>
+</BaseLayout>

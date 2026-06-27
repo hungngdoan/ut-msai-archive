@@ -1,0 +1,63 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ReadingItem from '../components/ReadingItem.astro';
+import { getReadings } from '../lib/collections';
+
+const readings = await getReadings();
+// Sort: reading first, then to-read, then done, then reference.
+const order = { reading: 0, 'to-read': 1, done: 2, reference: 3 } as Record<string, number>;
+readings.sort((a, b) => (order[a.data.status] ?? 9) - (order[b.data.status] ?? 9));
+
+const types = [...new Set(readings.map((r) => r.data.type))].sort();
+const typeLabel: Record<string, string> = {
+  book: 'Books', paper: 'Papers', article: 'Articles', video: 'Videos', course: 'Courses', docs: 'Docs',
+};
+---
+
+<BaseLayout title="Reference Library" description="Books, papers, and resources for an MSAI journey — metadata and public links only, never paid PDFs or course materials.">
+  <header class="mb-8">
+    <div class="eyebrow mb-3">Reference library · {readings.length} items</div>
+    <h1 class="text-4xl sm:text-5xl tracking-wide">Reference Library</h1>
+    <p class="mt-4 text-[var(--color-ink-300)] max-w-2xl leading-relaxed">
+      Books, papers, courses, and resources I'm working through. Metadata and public links only —
+      no paid PDFs, no course materials, no uploads.
+    </p>
+  </header>
+
+  <div class="flex flex-wrap gap-2 mb-8" id="reading-filters" role="toolbar" aria-label="Filter readings">
+    <button class="chip is-active" data-filter="all" aria-pressed="true">All</button>
+    {types.map((t) => <button class="chip" data-filter={t} aria-pressed="false">{typeLabel[t] ?? t}</button>)}
+  </div>
+
+  <ul class="space-y-3" id="reading-list">
+    {readings.map((reading) => <ReadingItem reading={reading} />)}
+  </ul>
+</BaseLayout>
+
+<style>
+  #reading-filters .chip { cursor: pointer; }
+  #reading-filters .chip.is-active {
+    color: var(--color-reactor-bright);
+    border-color: color-mix(in srgb, var(--color-reactor) 60%, var(--color-ink-700));
+    background: color-mix(in srgb, var(--color-reactor) 12%, transparent);
+  }
+</style>
+
+<script>
+  // Progressive enhancement: without JS, every reading is visible.
+  const filters = document.getElementById('reading-filters');
+  const items = Array.from(document.querySelectorAll('#reading-list > li')) as HTMLElement[];
+  filters?.addEventListener('click', (e) => {
+    const btn = (e.target as HTMLElement).closest('button[data-filter]') as HTMLElement | null;
+    if (!btn) return;
+    const filter = btn.dataset.filter;
+    filters.querySelectorAll('button').forEach((b) => {
+      const active = b === btn;
+      b.classList.toggle('is-active', active);
+      b.setAttribute('aria-pressed', String(active));
+    });
+    items.forEach((li) => {
+      li.style.display = filter === 'all' || li.dataset.type === filter ? '' : 'none';
+    });
+  });
+</script>

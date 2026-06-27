@@ -1,0 +1,44 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { href } from '../../lib/url';
+import { getWeeks, formatRange } from '../../lib/collections';
+
+const weeks = await getWeeks();
+const totalHours = weeks.reduce((s, w) => s + (w.data.hours ?? 0), 0);
+---
+
+<BaseLayout title="Experiment log" description="A running log of weekly learning progress through the MSAI program: focus, wins, and honest gaps.">
+  <header class="mb-12">
+    <div class="eyebrow mb-3">Lab journal · {weeks.length} entries · {totalHours}h logged</div>
+    <h1 class="text-4xl sm:text-5xl tracking-wide">Experiment log</h1>
+    <p class="mt-4 text-[var(--color-ink-300)] max-w-2xl leading-relaxed">
+      One short entry per week: what I ran, what worked, and what didn't. The gaps are the point —
+      this is a record of learning, not a highlight reel.
+    </p>
+  </header>
+
+  {weeks.length === 0 ? (
+    <p class="text-[var(--color-ink-400)]">No entries yet.</p>
+  ) : (
+    <ol class="relative border-l border-[var(--color-ink-800)] ml-2 space-y-8">
+      {weeks.map((w) => (
+        <li class="relative pl-6 sm:pl-8">
+          <span class="absolute -left-[5px] top-2 w-2.5 h-2.5 rounded-full bg-[var(--color-reactor)] ring-4 ring-[var(--color-ink-950)]"></span>
+          <a href={href(`/log/${w.id}`)} class="card card-link block p-5">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <span class="eyebrow">Week {w.data.week} · {formatRange(w.data.dateStart, w.data.dateEnd)}</span>
+              {w.data.hours && <span class="font-mono text-xs text-[var(--color-ink-400)]">{w.data.hours}h</span>}
+            </div>
+            <h2 class="text-xl mt-2">{w.data.title}</h2>
+            <p class="mt-1.5 text-[var(--color-ink-300)]">{w.data.focus}</p>
+            <div class="mt-4 flex flex-wrap items-center gap-1.5">
+              {w.data.courses.map((c) => <span class="chip">{c}</span>)}
+              {w.data.highlights.length > 0 && <span class="font-mono text-[0.7rem] text-[var(--color-ink-500)] ml-1">+{w.data.highlights.length} wins</span>}
+              {w.data.gaps.length > 0 && <span class="font-mono text-[0.7rem] text-[var(--color-ink-500)]">· {w.data.gaps.length} gaps</span>}
+            </div>
+          </a>
+        </li>
+      ))}
+    </ol>
+  )}
+</BaseLayout>

@@ -1,0 +1,34 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { href } from '../../lib/url';
+import { getReflections, formatDate } from '../../lib/collections';
+
+const reflections = await getReflections();
+const typeLabel: Record<string, string> = {
+  milestone: 'Milestone', gap: 'Gap analysis', retro: 'Retro', note: 'Note',
+};
+---
+
+<BaseLayout title="Field Notes" description="Milestones, gap analyses, and retrospectives across an MSAI journey.">
+  <header class="mb-12">
+    <div class="eyebrow mb-3">Notebook · {reflections.length} entries</div>
+    <h1 class="text-4xl sm:text-5xl tracking-wide">Field Notes</h1>
+    <p class="mt-4 text-[var(--color-ink-300)] max-w-2xl leading-relaxed">
+      Longer-form thinking: milestones, honest gap analyses, and retrospectives. Where the experiment log
+      is quick, this is where I step back and ask what's actually changing in how I think.
+    </p>
+  </header>
+
+  <div class="grid gap-5 sm:grid-cols-2">
+    {reflections.map((r) => (
+      <a href={href(`/reflections/${r.id}`)} class="card card-link accent-bar block p-6 pl-7">
+        <div class="flex items-center justify-between gap-3 mb-2">
+          <span class="eyebrow">{typeLabel[r.data.type] ?? r.data.type}</span>
+          <span class="font-mono text-xs text-[var(--color-ink-500)]">{formatDate(r.data.date)}</span>
+        </div>
+        <h2 class="text-xl leading-snug">{r.data.title}</h2>
+        {r.data.summary && <p class="mt-2 text-[var(--color-ink-300)] line-clamp-3">{r.data.summary}</p>}
+      </a>
+    ))}
+  </div>
+</BaseLayout>

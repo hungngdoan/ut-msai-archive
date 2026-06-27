@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import { getProjects } from '../../lib/collections';
+
+const projects = await getProjects();
+const featured = projects.filter((p) => p.data.featured);
+const rest = projects.filter((p) => !p.data.featured);
+---
+
+<BaseLayout title="Inventions" description="Portfolio-safe projects from an MSAI journey: side projects, rewrites, and demos — never raw assignment solutions.">
+  <header class="mb-10">
+    <div class="eyebrow mb-3">Workbench · {projects.length} inventions</div>
+    <h1 class="text-4xl sm:text-5xl tracking-wide">Inventions</h1>
+    <p class="mt-4 text-[var(--color-ink-300)] max-w-2xl leading-relaxed">
+      Things I build to learn. Everything here is portfolio-safe by policy: cleaned side projects, from-scratch
+      rewrites, and demos. No raw assignment solutions, no autograder files.
+    </p>
+  </header>
+
+  {featured.length > 0 && (
+    <div class="grid gap-5 sm:grid-cols-2 mb-6">
+      {featured.map((project) => <ProjectCard project={project} />)}
+    </div>
+  )}
+  <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+    {rest.map((project) => <ProjectCard project={project} />)}
+  </div>
+</BaseLayout>

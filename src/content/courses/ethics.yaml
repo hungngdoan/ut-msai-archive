@@ -1,0 +1,44 @@
+code: ETHICS
+title: Ethics in Artificial Intelligence
+semester: fall-2026
+status: planned
+credits: 3
+accent: "#c792ea"
+order: 2
+summary: >-
+  The part of AI that does not reduce to a loss function. This course is about the
+  social, ethical, and governance dimensions of building systems that act on people:
+  fairness and bias, transparency and accountability, privacy, and the gap between
+  what a model optimizes and what we actually want. My aim is to make ethical reasoning
+  a default step in how I design and ship models, not an afterthought bolted on at review.
+focusAreas:
+  - Fairness & bias
+  - Transparency & explainability
+  - Accountability & governance
+  - Privacy & consent
+  - Alignment & value specification
+  - Societal & labor impact
+tools:
+  - Model cards & datasheets
+  - Fairlearn
+  - AI Fairness 360 (AIF360)
+  - Case-study analysis
+skills:
+  - Structured ethical risk analysis
+  - Writing model cards and dataset datasheets
+  - Auditing models for disparate impact
+  - Reading and summarizing policy frameworks
+outcomes:
+  - Run a bias audit on a public model and document the findings honestly
+  - Write a clear model card for a system I have built
+  - Articulate a concrete failure mode for a deployed AI system and a mitigation
+  - Map stakeholders for an AI product and whose interests the metrics ignore
+links:
+  - label: Mitchell et al. — Model Cards for Model Reporting
+    url: https://arxiv.org/abs/1810.03993
+  - label: Gebru et al. — Datasheets for Datasets
+    url: https://arxiv.org/abs/1803.09010
+  - label: Bender et al. — On the Dangers of Stochastic Parrots
+    url: https://dl.acm.org/doi/10.1145/3442188.3445922
+  - label: NIST — AI Risk Management Framework
+    url: https://www.nist.gov/itl/ai-risk-management-framework

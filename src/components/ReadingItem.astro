@@ -1,0 +1,37 @@
+---
+import type { Reading } from '../lib/collections';
+import { STATUS_LABEL, statusClass } from '../lib/collections';
+
+interface Props {
+  reading: Reading;
+}
+const { reading } = Astro.props;
+const d = reading.data;
+const typeGlyph: Record<string, string> = {
+  book: '▣', paper: '❖', article: '✎', video: '▶', course: '◎', docs: '⌘',
+};
+---
+
+<li
+  class="card p-4 flex items-start gap-4"
+  data-type={d.type}
+  data-status={d.status}
+  data-courses={d.courses.join(',').toLowerCase()}
+>
+  <span class="font-mono text-[var(--color-ink-500)] text-lg leading-none mt-0.5" aria-hidden="true">{typeGlyph[d.type] ?? '•'}</span>
+  <div class="min-w-0 flex-1">
+    <div class="flex items-start justify-between gap-3">
+      <a href={d.url} target="_blank" rel="noopener" class="font-medium text-[var(--color-ink-100)] hover:text-[var(--color-reactor-bright)] leading-snug">
+        {d.title} <span class="text-[var(--color-ink-500)]">↗</span>
+      </a>
+      <span class:list={['pill', statusClass(d.status), 'shrink-0']}>{STATUS_LABEL[d.status]}</span>
+    </div>
+    <div class="mt-1 font-mono text-[0.72rem] text-[var(--color-ink-400)]">
+      {d.authors.length > 0 && <span>{d.authors.join(', ')}</span>}
+      {d.year && <span> · {d.year}</span>}
+      {d.venue && <span> · {d.venue}</span>}
+      {d.courses.length > 0 && <span> · {d.courses.join(' / ')}</span>}
+    </div>
+    {d.note && <p class="mt-2 text-sm text-[var(--color-ink-300)] leading-relaxed">{d.note}</p>}
+  </div>
+</li>

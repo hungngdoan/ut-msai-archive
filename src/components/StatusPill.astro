@@ -1,0 +1,11 @@
+---
+import { STATUS_LABEL, statusClass } from '../lib/collections';
+
+interface Props {
+  status: string;
+  label?: string;
+}
+const { status, label } = Astro.props;
+---
+
+<span class:list={['pill', statusClass(status)]}>{label ?? STATUS_LABEL[status] ?? status}</span>

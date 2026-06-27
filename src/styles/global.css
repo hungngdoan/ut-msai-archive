@@ -1,0 +1,249 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------ *
+ * The Laboratory — design tokens
+ * Cool charcoal surfaces + reactor teal, with hazard red and caution
+ * amber as instrument accents. Blueprint grid, techno display type,
+ * monospace metadata. A lab instrument panel, rendered with restraint.
+ *
+ * THEME: an original homage inspired by Dexter's Laboratory (Cartoon
+ * Network, 1996-2003) — the *idea* of a secret experiment lab, not the
+ * show's assets. No official logos/fonts/art are used. Full notes and
+ * IP guidance: docs/THEME.md.
+ * ------------------------------------------------------------------ */
+@theme {
+  /* Reactor (primary accent) */
+  --color-reactor: #13b9a0;
+  --color-reactor-bright: #2ce3c4;
+  --color-reactor-dim: #0c7d6c;
+
+  /* Instrument accents */
+  --color-hazard: #ff4438; /* warning red — used sparingly */
+  --color-amber: #f5a623; /* caution / in-progress */
+
+  /* Cool steel neutral ramp */
+  --color-ink-950: #0a0c0f;
+  --color-ink-900: #0f1318;
+  --color-ink-850: #141a20;
+  --color-ink-800: #1a212a;
+  --color-ink-700: #283139;
+  --color-ink-600: #3a454f;
+  --color-ink-500: #515d68;
+  --color-ink-400: #7e8a96;
+  --color-ink-300: #a7b1bb;
+  --color-ink-200: #ccd3da;
+  --color-ink-100: #eef2f5;
+
+  /* Status hues */
+  --color-status-active: #f5a623; /* calibrating / in-progress */
+  --color-status-done: #2ce3c4; /* stable / online */
+  --color-status-planned: #7e8a96; /* offline / planned */
+
+  /* Typography */
+  --font-display: "Chakra Petch", "Eurostile", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "Cascadia Code", "SFMono-Regular", Menlo, monospace;
+
+  --spacing-gutter: 1.5rem;
+}
+
+/* ------------------------------------------------------------------ *
+ * Base
+ * ------------------------------------------------------------------ */
+html {
+  scroll-behavior: smooth;
+  color-scheme: dark;
+}
+
+body {
+  background-color: var(--color-ink-950);
+  color: var(--color-ink-200);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  /* blueprint grid */
+  background-image:
+    linear-gradient(to right, rgba(44, 227, 196, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(44, 227, 196, 0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  background-position: center top;
+}
+
+::selection {
+  background: var(--color-reactor);
+  color: #04201b;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  color: var(--color-ink-100);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+a { color: inherit; text-decoration: none; }
+
+:focus-visible {
+  outline: 2px solid var(--color-reactor-bright);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* ------------------------------------------------------------------ *
+ * Reusable component classes
+ * ------------------------------------------------------------------ */
+
+/* Monospace metadata label, e.g. "MODULE / 01" */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-ink-400);
+}
+
+/* Instrument panel card */
+.card {
+  position: relative;
+  background: color-mix(in srgb, var(--color-ink-900) 90%, transparent);
+  border: 1px solid var(--color-ink-700);
+  border-radius: 0.4rem;
+  transition: border-color 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+}
+.card:hover { border-color: var(--color-ink-600); }
+.card-link:hover {
+  border-color: color-mix(in srgb, var(--color-reactor) 60%, var(--color-ink-600));
+  transform: translateY(-2px);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-reactor) 25%, transparent),
+    0 12px 30px -18px color-mix(in srgb, var(--color-reactor) 70%, transparent);
+}
+
+/* reactor energy bar on the left edge */
+.accent-bar::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.75rem;
+  bottom: 0.75rem;
+  width: 3px;
+  border-radius: 3px;
+  background: linear-gradient(to bottom, var(--color-reactor-bright), var(--color-reactor-dim));
+  box-shadow: 0 0 12px -2px color-mix(in srgb, var(--color-reactor) 80%, transparent);
+}
+
+/* hairline rule */
+.rule { border: 0; border-top: 1px solid var(--color-ink-700); }
+
+/* diagonal hazard stripes — used as thin flourishes only */
+.stripes {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    var(--color-amber) 0 10px,
+    transparent 10px 20px
+  );
+  opacity: 0.5;
+}
+
+/* status pill */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.55rem;
+  border-radius: 0.3rem;
+  border: 1px solid var(--color-ink-700);
+  color: var(--color-ink-300);
+  white-space: nowrap;
+}
+.pill::before {
+  content: "";
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 999px;
+  background: currentColor;
+  box-shadow: 0 0 8px -1px currentColor;
+}
+.pill-active { color: var(--color-status-active); border-color: color-mix(in srgb, var(--color-status-active) 40%, var(--color-ink-700)); }
+.pill-done   { color: var(--color-status-done);   border-color: color-mix(in srgb, var(--color-status-done) 40%, var(--color-ink-700)); }
+.pill-planned{ color: var(--color-status-planned); }
+
+/* tag chip */
+.chip {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  padding: 0.15rem 0.5rem;
+  border-radius: 0.3rem;
+  border: 1px solid var(--color-ink-700);
+  color: var(--color-ink-300);
+  background: color-mix(in srgb, var(--color-ink-850) 70%, transparent);
+  transition: border-color 140ms ease, color 140ms ease;
+}
+
+/* ------------------------------------------------------------------ *
+ * Prose (MDX bodies)
+ * ------------------------------------------------------------------ */
+.prose {
+  color: var(--color-ink-200);
+  line-height: 1.7;
+  font-size: 1rem;
+  max-width: 68ch;
+}
+.prose > * + * { margin-top: 1.1em; }
+.prose h2 {
+  font-size: 1.5rem;
+  margin-top: 2em;
+  padding-top: 0.6em;
+  border-top: 1px solid var(--color-ink-800);
+}
+.prose h3 { font-size: 1.2rem; margin-top: 1.6em; color: var(--color-ink-100); }
+.prose a {
+  color: var(--color-reactor-bright);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: color-mix(in srgb, var(--color-reactor) 50%, transparent);
+}
+.prose a:hover { text-decoration-color: var(--color-reactor-bright); }
+.prose strong { color: var(--color-ink-100); font-weight: 600; }
+.prose ul, .prose ol { padding-left: 1.3em; }
+.prose ul { list-style: none; }
+.prose ul > li { position: relative; }
+.prose ul > li::before {
+  content: "—";
+  position: absolute;
+  left: -1.3em;
+  color: var(--color-reactor);
+}
+.prose ol { list-style: decimal; }
+.prose ol > li { margin-top: 0.4em; padding-left: 0.2em; }
+.prose blockquote {
+  border-left: 3px solid var(--color-reactor);
+  padding-left: 1em;
+  color: var(--color-ink-300);
+  font-style: italic;
+}
+.prose code {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  background: var(--color-ink-850);
+  border: 1px solid var(--color-ink-700);
+  padding: 0.1em 0.35em;
+  border-radius: 0.3rem;
+}
+.prose pre {
+  background: var(--color-ink-900) !important;
+  border: 1px solid var(--color-ink-700);
+  border-radius: 0.5rem;
+  padding: 1rem 1.1rem;
+  overflow-x: auto;
+  font-size: 0.85rem;
+}
+.prose pre code { background: none; border: 0; padding: 0; }
+.prose hr { border: 0; border-top: 1px solid var(--color-ink-800); margin: 2em 0; }
+.prose table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+.prose th, .prose td { border: 1px solid var(--color-ink-700); padding: 0.5em 0.7em; text-align: left; }
+.prose th { background: var(--color-ink-850); font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.05em; text-transform: uppercase; }
