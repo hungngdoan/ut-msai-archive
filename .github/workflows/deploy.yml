@@ -26,7 +26,7 @@ jobs:
       - name: Build with Astro
         uses: withastro/action@v3
         with:
-          node-version: 20
+          node-version: 22
           # `site` and `base` come from astro.config.mjs; no need to pass them here.
 
   deploy:
