@@ -39,6 +39,9 @@ const courses = defineCollection({
   schema: z.object({
     code: z.string(),          // short label used for cross-refs, e.g. "NLP"
     title: z.string(),         // public catalog name
+    catalogNumber: z.string().optional(),              // UT catalog number, e.g. "AI 394D"
+    type: z.enum(['required', 'elective']).optional(), // degree requirement type
+    hoursPerWeek: z.string().optional(),               // weekly time estimate, e.g. "12-15" or "15+"
     semester: z.string(),      // semester id, e.g. "fall-2026"
     status: z.enum(['planned', 'in-progress', 'completed']),
     credits: z.number().optional(),

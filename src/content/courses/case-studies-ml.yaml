@@ -1,0 +1,40 @@
+code: CSML
+title: Case Studies in Machine Learning
+catalogNumber: AI 391M
+type: elective
+hoursPerWeek: "8-10"
+semester: spring-2027
+status: planned
+credits: 3
+accent: "#ef6f9e"
+order: 5
+summary: >-
+  An applied counterpart to the core machine learning course, organized around real-world
+  datasets and end-to-end case studies. The emphasis is on the messy parts that theory
+  glosses over: data cleaning and feature engineering, principled model selection,
+  evaluation under realistic constraints, reproducibility, and the practical concerns of
+  taking a model from notebook to deployment.
+focusAreas:
+  - Applied ML workflows
+  - Data cleaning & feature engineering
+  - Model selection
+  - Evaluation in practice
+  - Reproducibility
+  - Deployment considerations
+tools:
+  - Python
+  - scikit-learn
+  - pandas
+  - Matplotlib
+  - Jupyter
+skills: []
+outcomes: []
+links:
+  - label: Géron — Hands-On Machine Learning (companion code, public)
+    url: https://github.com/ageron/handson-ml3
+  - label: Kaggle Learn — applied ML micro-courses
+    url: https://www.kaggle.com/learn
+  - label: Google — Rules of Machine Learning
+    url: https://developers.google.com/machine-learning/guides/rules-of-ml
+  - label: UCI Machine Learning Repository
+    url: https://archive.ics.uci.edu/

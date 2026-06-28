@@ -1,0 +1,39 @@
+code: GEN
+title: Advances in Generative Models
+catalogNumber: AI 395T
+type: elective
+hoursPerWeek: "12-15"
+semester: spring-2028
+status: planned
+credits: 3
+accent: "#b388ff"
+order: 9
+summary: >-
+  A focused study of models that learn to generate data. The course spans the major
+  families: variational autoencoders, generative adversarial networks, normalizing flows,
+  autoregressive models, and the score-based and diffusion models behind modern image and
+  audio synthesis. It also examines how the quality and diversity of generative models are
+  measured and compared.
+focusAreas:
+  - Variational autoencoders
+  - Generative adversarial networks
+  - Normalizing flows
+  - Autoregressive generation
+  - Diffusion & score-based models
+  - Evaluation of generative models
+tools:
+  - PyTorch
+  - Hugging Face Diffusers
+  - NumPy
+  - Weights & Biases
+skills: []
+outcomes: []
+links:
+  - label: Ho et al. — Denoising Diffusion Probabilistic Models
+    url: https://arxiv.org/abs/2006.11239
+  - label: Goodfellow et al. — Generative Adversarial Networks
+    url: https://arxiv.org/abs/1406.2661
+  - label: Kingma & Welling — Auto-Encoding Variational Bayes
+    url: https://arxiv.org/abs/1312.6114
+  - label: Lilian Weng — What Are Diffusion Models?
+    url: https://lilianweng.github.io/posts/2021-07-11-diffusion-models/

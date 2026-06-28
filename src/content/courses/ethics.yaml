@@ -1,5 +1,8 @@
 code: ETHICS
 title: Ethics in Artificial Intelligence
+catalogNumber: AI 380E
+type: required
+hoursPerWeek: "8-10"
 semester: fall-2026
 status: planned
 credits: 3

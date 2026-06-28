@@ -1,7 +1,7 @@
 ---
 title: The Laboratory — this notebook
 date: 2026-06-26
-summary: The static site you're reading. A build-validated lab notebook where every module, log entry, and reference is one typed content file.
+summary: The static site you're reading. A build-validated lab notebook where every course, log entry, and reference is one typed content file.
 status: shipped
 stack: ["Astro", "TypeScript", "Tailwind CSS", "MDX", "GitHub Actions"]
 courses: []
@@ -10,7 +10,7 @@ portfolioSafe: true
 featured: true
 highlights:
   - Content collections with zod schemas reject malformed or unsafe-shaped edits at build time
-  - Module progress is derived from the academic calendar, so a progress bar can never overstate reality
+  - Course progress is derived from the academic calendar, so a progress bar can never overstate reality
   - Ships automatically to GitHub Pages on merge via GitHub Actions
 tags: ["web", "astro", "infrastructure"]
 ---
@@ -23,11 +23,11 @@ small, ongoing engineering artifact, which fits a program in AI better than a ho
 
 ## Design decisions
 
-- **One file per entry, schema-validated.** Every module, week, reference, invention, and field note is
+- **One file per entry, schema-validated.** Every course, week, reference, invention, and field note is
   a single content file checked against a zod schema. A bad edit fails the build instead of shipping
   silently. This is also what makes it safe to let an AI assistant propose changes — the schema and CI
   are the guardrails.
-- **Derived, honest progress.** Rather than a manual percentage I'd forget to update, module progress is
+- **Derived, honest progress.** Rather than a manual percentage I'd forget to update, course progress is
   computed from term start and end dates. It can be wrong about ambition but never about the calendar.
 - **No backend, no database, no login.** Free hosting on GitHub Pages, nothing to operate, nothing to
   leak.

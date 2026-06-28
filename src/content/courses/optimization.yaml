@@ -1,0 +1,40 @@
+code: OPT
+title: Optimization
+catalogNumber: AI 388J
+type: elective
+hoursPerWeek: "15+"
+semester: spring-2028
+status: planned
+credits: 3
+accent: "#4dd0e1"
+order: 10
+summary: >-
+  The mathematical machinery underneath model training. The course covers convex sets and
+  functions, gradient and subgradient methods, stochastic gradient descent, duality and
+  the KKT conditions, constrained optimization, and Newton and quasi-Newton methods, with
+  attention to convergence analysis. It provides the theory behind why and when learning
+  algorithms actually converge.
+focusAreas:
+  - Convex sets & functions
+  - Gradient & subgradient methods
+  - Stochastic gradient descent
+  - Duality & KKT conditions
+  - Constrained optimization
+  - Newton & quasi-Newton methods
+  - Convergence analysis
+tools:
+  - Python
+  - CVXPY
+  - NumPy
+  - SciPy
+skills: []
+outcomes: []
+links:
+  - label: Boyd & Vandenberghe — Convex Optimization (free)
+    url: https://web.stanford.edu/~boyd/cvxbook/
+  - label: Stanford EE364A — Convex Optimization I
+    url: https://web.stanford.edu/class/ee364a/
+  - label: Nocedal & Wright — Numerical Optimization (publisher page)
+    url: https://link.springer.com/book/10.1007/978-0-387-40065-5
+  - label: CVXPY — documentation
+    url: https://www.cvxpy.org/

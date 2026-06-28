@@ -51,6 +51,10 @@
  * Base
  * ------------------------------------------------------------------ */
 html {
+  /* Global 125% scale: every rem-based size (Tailwind utilities + custom CSS)
+     grows proportionally, so fonts, spacing, and layout all read larger.
+     Tuned for high-DPI / 2K displays where the default 16px base is too small. */
+  font-size: 125%;
   scroll-behavior: smooth;
   color-scheme: dark;
 }

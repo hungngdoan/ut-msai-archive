@@ -1,0 +1,40 @@
+code: ADL
+title: Advances in Deep Learning
+catalogNumber: AI 395T
+type: elective
+hoursPerWeek: "12-15"
+semester: fall-2027
+status: planned
+credits: 3
+accent: "#ff8a65"
+order: 8
+summary: >-
+  A research-facing course on the architectures and training methods at the current
+  frontier of deep learning. Topics include the transformer in depth, large language
+  models, self-supervised and contrastive learning, vision transformers, scaling laws,
+  and efficient fine-tuning. The focus is on reading recent literature and understanding
+  the ideas driving large-scale models.
+focusAreas:
+  - Transformer architectures
+  - Large language models
+  - Self-supervised & contrastive learning
+  - Vision transformers
+  - Scaling laws
+  - Efficient training & fine-tuning
+  - Multimodal models
+tools:
+  - PyTorch
+  - Hugging Face Transformers
+  - CUDA / GPU training
+  - Weights & Biases
+skills: []
+outcomes: []
+links:
+  - label: Vaswani et al. — Attention Is All You Need
+    url: https://arxiv.org/abs/1706.03762
+  - label: Stanford CS25 — Transformers United
+    url: https://web.stanford.edu/class/cs25/
+  - label: Lilian Weng — Lil'Log research blog
+    url: https://lilianweng.github.io/
+  - label: Hugging Face — documentation
+    url: https://huggingface.co/docs
