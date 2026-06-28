@@ -21,11 +21,20 @@ const progLabel =
 <a href={href(`/courses/${course.id}`)} class="card card-link accent-bar block p-5 pl-6 h-full">
   <div class="flex items-start justify-between gap-3 mb-3">
     <div>
-      <div class="eyebrow mb-1" style={`color:${course.data.accent}`}>{course.data.code}</div>
+      <div class="eyebrow mb-1" style={`color:${course.data.accent}`}>
+        {course.data.code}{course.data.catalogNumber && <span class="text-[var(--color-ink-400)]"> · {course.data.catalogNumber}</span>}
+      </div>
       <h3 class="text-lg leading-tight">{course.data.title}</h3>
     </div>
     <StatusPill status={course.data.status} />
   </div>
+  {(course.data.type || course.data.hoursPerWeek) && (
+    <div class="mb-3 flex items-center gap-2 font-mono text-[0.7rem] text-[var(--color-ink-400)]">
+      {course.data.type && <span class="capitalize">{course.data.type}</span>}
+      {course.data.type && course.data.hoursPerWeek && <span class="text-[var(--color-ink-500)]">·</span>}
+      {course.data.hoursPerWeek && <span>~{course.data.hoursPerWeek} h/wk</span>}
+    </div>
+  )}
   <p class="text-sm text-[var(--color-ink-300)] leading-relaxed line-clamp-3">{course.data.summary}</p>
   <div class="mt-4 flex flex-wrap gap-1.5">
     {course.data.focusAreas.slice(0, 3).map((f) => <span class="chip">{f}</span>)}

@@ -4,7 +4,7 @@ export const site = {
   shortName: 'LAB',
   tagline: 'A graduate AI lab notebook.',
   description:
-    'The Laboratory — a public, build-validated notebook for an MSAI journey: modules, experiment logs, a reference library, inventions, and field notes. My own words and public links only.',
+    'The Laboratory — a public, build-validated notebook for an MSAI journey: a course roadmap, experiment logs, a reference library, inventions, and field notes. My own words and public links only.',
   author: 'Hung Doan',
   programStart: '2026-08-26',
   // The semester to feature on the dashboard. Update once per term.
@@ -14,7 +14,7 @@ export const site = {
   // stable route. The base path is applied by the href() helper.
   nav: [
     { label: 'Control', href: '/' },
-    { label: 'Modules', href: '/courses' },
+    { label: 'Roadmap', href: '/courses' },
     { label: 'Log', href: '/log' },
     { label: 'Library', href: '/readings' },
     { label: 'Inventions', href: '/projects' },

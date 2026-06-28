@@ -1,0 +1,41 @@
+code: RL
+title: Reinforcement Learning
+catalogNumber: AI 394R
+type: elective
+hoursPerWeek: "10-12"
+semester: summer-2027
+status: planned
+credits: 3
+accent: "#5fd38d"
+order: 6
+summary: >-
+  How agents learn to act by interacting with an environment and maximizing long-run
+  reward. The course builds from the Markov decision process formalism through dynamic
+  programming, Monte Carlo and temporal-difference methods, and Q-learning, then extends
+  into policy-gradient algorithms and deep reinforcement learning where neural networks
+  approximate value functions and policies.
+focusAreas:
+  - Markov decision processes
+  - Dynamic programming
+  - Monte Carlo methods
+  - Temporal-difference learning
+  - Q-learning
+  - Policy gradients
+  - Deep reinforcement learning
+tools:
+  - Python
+  - Gymnasium
+  - PyTorch
+  - NumPy
+  - Stable-Baselines3
+skills: []
+outcomes: []
+links:
+  - label: Sutton & Barto — Reinforcement Learning, An Introduction (free)
+    url: http://incompleteideas.net/book/the-book-2nd.html
+  - label: David Silver — Reinforcement Learning Course (UCL/DeepMind)
+    url: https://www.davidsilver.uk/teaching/
+  - label: OpenAI — Spinning Up in Deep RL
+    url: https://spinningup.openai.com/
+  - label: Gymnasium — documentation
+    url: https://gymnasium.farama.org/

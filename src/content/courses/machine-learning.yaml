@@ -1,0 +1,41 @@
+code: ML
+title: Machine Learning
+catalogNumber: AI 391L
+type: elective
+hoursPerWeek: "10-12"
+semester: spring-2027
+status: planned
+credits: 3
+accent: "#4f9dde"
+order: 4
+summary: >-
+  The foundational survey of how machines learn from data. The course covers the core
+  supervised and unsupervised methods that underpin modern AI: linear and logistic
+  regression, support vector machines and kernels, tree-based ensembles, clustering, and
+  dimensionality reduction, alongside the theory of generalization, the bias-variance
+  tradeoff, and rigorous model evaluation.
+focusAreas:
+  - Supervised learning
+  - Unsupervised learning
+  - Linear & logistic regression
+  - SVMs & kernels
+  - Decision trees & ensembles
+  - Model evaluation & cross-validation
+  - Bias-variance tradeoff
+tools:
+  - Python
+  - scikit-learn
+  - NumPy
+  - pandas
+  - Jupyter
+skills: []
+outcomes: []
+links:
+  - label: Hastie, Tibshirani & Friedman — The Elements of Statistical Learning (free)
+    url: https://hastie.su.domains/ElemStatLearn/
+  - label: James et al. — An Introduction to Statistical Learning (free)
+    url: https://www.statlearning.com/
+  - label: Andrew Ng — Machine Learning Specialization (Coursera)
+    url: https://www.coursera.org/specializations/machine-learning-introduction
+  - label: scikit-learn — User Guide
+    url: https://scikit-learn.org/stable/user_guide.html

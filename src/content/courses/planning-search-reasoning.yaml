@@ -1,0 +1,40 @@
+code: PSR
+title: Planning, Search & Reasoning
+catalogNumber: AI 388U
+type: elective
+hoursPerWeek: "10-12"
+semester: fall-2027
+status: planned
+credits: 3
+accent: "#f2c14e"
+order: 7
+summary: >-
+  The symbolic and search-based side of artificial intelligence. The course covers
+  uninformed and heuristic search, A* and admissible heuristics, constraint satisfaction,
+  classical planning, and logical knowledge representation, along with adversarial search
+  and reasoning under uncertainty. It complements the statistical learning track with the
+  deliberative, structure-driven approaches to AI.
+focusAreas:
+  - Uninformed & heuristic search
+  - A* and admissible heuristics
+  - Constraint satisfaction
+  - Classical planning
+  - Knowledge representation & logical reasoning
+  - Adversarial search
+  - Reasoning under uncertainty
+tools:
+  - Python
+  - PDDL planners
+  - Z3
+  - NetworkX
+skills: []
+outcomes: []
+links:
+  - label: Russell & Norvig — Artificial Intelligence, A Modern Approach
+    url: https://aima.cs.berkeley.edu/
+  - label: Berkeley CS188 — Introduction to Artificial Intelligence
+    url: https://inst.eecs.berkeley.edu/~cs188/
+  - label: Planning.Domains — PDDL tools & resources
+    url: http://planning.domains/
+  - label: Z3 — theorem prover
+    url: https://github.com/Z3Prover/z3

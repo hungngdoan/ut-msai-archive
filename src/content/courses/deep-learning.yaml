@@ -1,10 +1,13 @@
 code: DL
 title: Deep Learning
+catalogNumber: AI 394D
+type: elective
+hoursPerWeek: "12-15"
 semester: fall-2026
 status: planned
 credits: 3
 accent: "#f5a623"
-order: 3
+order: 1
 summary: >-
   The mathematical and engineering core of modern AI. Starting from a single neuron and
   backpropagation, building up through optimization, convolutional and recurrent

@@ -6,19 +6,21 @@ import { getCourses, getSemesters, coursesForSemester } from '../../lib/collecti
 
 const courses = await getCourses();
 const semesters = await getSemesters();
-// Group by semester, newest term first.
+// Group by semester as a chronological timeline: earliest term (Fall 2026) on top,
+// latest (Spring 2028) at the bottom.
 const groups = semesters
   .map((sem) => ({ sem, courses: coursesForSemester(courses, sem.id) }))
-  .filter((g) => g.courses.length > 0);
+  .filter((g) => g.courses.length > 0)
+  .sort((a, b) => a.sem.data.order - b.sem.data.order);
 const orphan = courses.filter((c) => !semesters.some((s) => s.id === c.data.semester));
 ---
 
-<BaseLayout title="Modules" description="Modules across the MSAI program, with my own summaries, target outcomes, and public resources.">
+<BaseLayout title="Roadmap" description="The full MSAI course schedule, term by term, with my own summaries, target outcomes, and public resources.">
   <header class="mb-12">
     <div class="eyebrow mb-3">Curriculum</div>
-    <h1 class="text-4xl sm:text-5xl tracking-wide">Modules</h1>
+    <h1 class="text-4xl sm:text-5xl tracking-wide">Roadmap</h1>
     <p class="mt-4 text-[var(--color-ink-300)] max-w-2xl leading-relaxed">
-      Every course in the program, treated as a module: my own summary, the skills I want to walk away
+      Every course in the program, in the order I plan to take it: my own summary, the skills I want to walk away
       with, and public resources. Progress is derived from the academic calendar, not hand-tuned — so it
       never lies.
     </p>
@@ -26,7 +28,7 @@ const orphan = courses.filter((c) => !semesters.some((s) => s.id === c.data.seme
 
   {groups.map(({ sem, courses }) => (
     <section class="mb-14">
-      <SectionHeader eyebrow={`${sem.data.name} · ${courses.length} ${courses.length === 1 ? 'module' : 'modules'}`} title={sem.data.name} />
+      <SectionHeader eyebrow={`${sem.data.name} · ${courses.length} ${courses.length === 1 ? 'course' : 'courses'}`} title={sem.data.name} />
       <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {courses.map((course) => <CourseCard course={course} semester={sem} />)}
       </div>
@@ -35,7 +37,7 @@ const orphan = courses.filter((c) => !semesters.some((s) => s.id === c.data.seme
 
   {orphan.length > 0 && (
     <section class="mb-14">
-      <SectionHeader eyebrow="Unscheduled" title="Other modules" />
+      <SectionHeader eyebrow="Unscheduled" title="Other courses" />
       <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {orphan.map((course) => <CourseCard course={course} />)}
       </div>

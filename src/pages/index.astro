@@ -26,7 +26,7 @@ const reading = readings.find((r) => r.data.status === 'reading') ?? readings.fi
 const featuredProjects = projects.filter((p) => p.data.featured).slice(0, 2);
 
 const statItems = [
-  { n: stats.coursesInProgress + stats.coursesPlanned, label: 'modules tracked' },
+  { n: stats.coursesInProgress + stats.coursesPlanned, label: 'courses tracked' },
   { n: stats.weeksLogged, label: 'experiments logged' },
   { n: `${stats.readingsDone}/${stats.readingsTotal}`, label: 'references cleared' },
   { n: stats.projectsTotal, label: 'inventions' },
@@ -45,7 +45,7 @@ const statItems = [
       The&nbsp;Lab<span class="text-[var(--color-reactor-bright)]">oratory</span>
     </h1>
     <p class="mt-5 text-lg text-[var(--color-ink-300)] max-w-2xl leading-relaxed">
-      A build-validated notebook for my Master of Science in Artificial Intelligence — modules,
+      A build-validated notebook for my Master of Science in Artificial Intelligence — a course roadmap,
       experiment logs, a reference library, inventions, and honest field notes. Everything here is
       my own words and public links only.
     </p>
@@ -75,7 +75,7 @@ const statItems = [
   <!-- Current courses -->
   {currentCourses.length > 0 && (
     <section class="mt-16">
-      <SectionHeader eyebrow={current?.data.name} title="Active modules" more={{ label: 'All modules', href: '/courses' }} />
+      <SectionHeader eyebrow={current?.data.name} title="Active courses" more={{ label: 'Full roadmap', href: '/courses' }} />
       <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {currentCourses.map((course) => <CourseCard course={course} semester={current} />)}
       </div>

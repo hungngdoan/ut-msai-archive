@@ -36,13 +36,16 @@ const lists: { label: string; items: string[] }[] = [
 ---
 
 <BaseLayout title={d.title} description={d.summary}>
-  <a href={href('/courses')} class="font-mono text-xs text-[var(--color-ink-400)] hover:text-[var(--color-reactor-bright)]">← Modules</a>
+  <a href={href('/courses')} class="font-mono text-xs text-[var(--color-ink-400)] hover:text-[var(--color-reactor-bright)]">← Roadmap</a>
 
   <header class="mt-4 mb-8 border-b border-[var(--color-ink-800)] pb-8">
-    <div class="flex items-center gap-3 mb-3">
+    <div class="flex flex-wrap items-center gap-3 mb-3">
       <span class="eyebrow" style={`color:${d.accent}`}>{d.code}</span>
+      {d.catalogNumber && <span class="font-mono text-xs text-[var(--color-ink-400)]">{d.catalogNumber}</span>}
       <StatusPill status={d.status} />
       {semester && <span class="font-mono text-xs text-[var(--color-ink-400)]">{semester.data.name}</span>}
+      {d.type && <span class="font-mono text-xs text-[var(--color-ink-400)] capitalize">{d.type}</span>}
+      {d.hoursPerWeek && <span class="font-mono text-xs text-[var(--color-ink-400)]">~{d.hoursPerWeek} h/wk</span>}
     </div>
     <h1 class="text-3xl sm:text-5xl max-w-3xl">{d.title}</h1>
     <p class="mt-5 text-lg text-[var(--color-ink-300)] max-w-2xl leading-relaxed">{d.summary}</p>
