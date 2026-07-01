@@ -31,9 +31,9 @@ No backend, no database, no login, no comments. The content files are the source
 
 ```bash
 npm install        # one time
-npm run dev        # local dev server (note the /ut-msai-archive/ base path)
+npm run dev        # http://localhost:4322/ut-msai-archive/
 npm run build      # astro check (schema/type validation) + astro build
-npm run preview    # preview the production build locally
+npm run preview    # preview the production build on port 4322
 ```
 
 Requires Node 22+ (see `.nvmrc`).
